@@ -1,6 +1,8 @@
 package io.learning.service;
 
+import io.learning.model.Course;
 import io.learning.model.Student;
+import io.learning.repository.CourseRepository;
 import io.learning.repository.StudentRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class StudentsService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     public List<Student> getStudents() {
         return studentRepository.findAll();
@@ -64,10 +69,13 @@ public class StudentsService {
         return filteredStudents;
     }
 
-//    public Student registerCourse(Long studentId, Long courseId) {
-//        Student student = studentRepository.findById(studentId).get();
-//        Course course = courseRepository.findById(courseId).get();
-//        student.getCourses().add(course);
-//        return studentRepository.save(student);
-//    }
+    public Student registerCourse(Long studentId, Long courseId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+
+        student.getCourses().add(course);
+        return studentRepository.save(student);
+    }
 }

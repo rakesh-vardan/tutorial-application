@@ -52,4 +52,9 @@ public class StudentController {
         List<Student> studentList = studentsService.searchStudents(name);
         return ResponseEntity.ok(studentList);
     }
+
+    @PostMapping("/{studentId}/courses/{courseId}")
+    public void registerStudentForCourse(@PathVariable Long studentId, @PathVariable Long courseId) {
+        studentsService.registerCourse(studentId, courseId);
+    }
 }
