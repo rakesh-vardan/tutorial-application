@@ -2,7 +2,9 @@ package io.learning.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class Student {
 
     @Id
@@ -22,7 +26,7 @@ public class Student {
     private String email;
     private String phone;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     @JoinColumn(name = "student_id")
     private Set<Course> courses = new HashSet<>();
 }

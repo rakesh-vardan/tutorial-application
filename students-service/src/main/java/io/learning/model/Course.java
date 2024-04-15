@@ -2,11 +2,15 @@ package io.learning.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity(name = "course")
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class Course {
 
     @Id

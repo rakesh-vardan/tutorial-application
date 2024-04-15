@@ -1,10 +1,11 @@
 package io.learning.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
 public class Course {
 
     private Long id;

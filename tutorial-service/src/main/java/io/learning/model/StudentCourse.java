@@ -13,12 +13,12 @@ import java.util.Set;
 @ToString
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Student {
+public class StudentCourse {
 
     private Long id;
     private String name;
     private String gender;
     private String email;
     private String phone;
-    private Set<Long> courses;
+    private Set<Course> courses;
 }

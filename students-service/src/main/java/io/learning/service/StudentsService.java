@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentsService {
@@ -37,6 +39,11 @@ public class StudentsService {
     }
 
     public Student addStudent(Student student) {
+        Set<Course> courses = student.getCourses().stream()
+                .map(course -> courseRepository.findById(course.getId())
+                        .orElseThrow(() -> new RuntimeException("Course not found")))
+                .collect(Collectors.toSet());
+        student.setCourses(courses);
         return studentRepository.save(student);
     }
 
@@ -55,6 +62,11 @@ public class StudentsService {
         if (StringUtils.isNotEmpty(updatedStudent.getPhone())) {
             student.setPhone(updatedStudent.getPhone());
         }
+        Set<Course> courses = updatedStudent.getCourses().stream()
+                .map(course -> courseRepository.findById(course.getId())
+                        .orElseThrow(() -> new RuntimeException("Course not found")))
+                .collect(Collectors.toSet());
+        student.setCourses(courses);
         return studentRepository.save(student);
     }
 
