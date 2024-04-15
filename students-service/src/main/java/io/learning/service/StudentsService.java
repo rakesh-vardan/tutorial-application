@@ -28,6 +28,10 @@ public class StudentsService {
         return studentRepository.findAll();
     }
 
+    public Student getStudent(String email) {
+        return studentRepository.findByEmail(email);
+    }
+
     public Student getStudent(Long id) {
         return studentRepository.findById(id).get();
     }
@@ -37,8 +41,8 @@ public class StudentsService {
     }
 
 
-    public Student updateStudent(Student updatedStudent, Long id) {
-        Student student = studentRepository.findById(id).get();
+    public Student updateStudent(Student updatedStudent, String email) {
+        Student student = studentRepository.findByEmail(email);
         if (StringUtils.isNotEmpty(updatedStudent.getName())) {
             student.setName(updatedStudent.getName());
         }
@@ -54,15 +58,16 @@ public class StudentsService {
         return studentRepository.save(student);
     }
 
-    public void deleteStudent(Long id) {
-        studentRepository.deleteById(id);
+    public void deleteStudent(String email) {
+        Student student = studentRepository.findByEmail(email);
+        studentRepository.delete(student);
     }
 
     public List<Student> searchStudents(String name) {
         List<Student> students = this.getStudents();
-        List<Student> filteredStudents = new ArrayList<Student>();
+        List<Student> filteredStudents = new ArrayList<>();
         for (Student student : students) {
-            if (student.getEmail().contains(name)) {
+            if (student.getName().contains(name)) {
                 filteredStudents.add(student);
             }
         }

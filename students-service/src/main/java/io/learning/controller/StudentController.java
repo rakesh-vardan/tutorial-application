@@ -22,10 +22,9 @@ public class StudentController {
         return ResponseEntity.ok(studentList);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable("id") Long id) {
-        Student student = studentsService.getStudent(id);
-        return ResponseEntity.ok(student);
+    @GetMapping("/{email}")
+    public ResponseEntity<Student> getStudent(@PathVariable("email") String email) {
+        return ResponseEntity.ok(studentsService.getStudent(email));
     }
 
     @PostMapping
@@ -34,16 +33,16 @@ public class StudentController {
         return ResponseEntity.ok(addedStudent);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{email}")
     public ResponseEntity<Student> update(@RequestBody Student student,
-                                          @PathVariable("id") Long id) {
-        Student updatedStudent = studentsService.updateStudent(student, id);
+                                          @PathVariable("email") String email) {
+        Student updatedStudent = studentsService.updateStudent(student, email);
         return ResponseEntity.ok(updatedStudent);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        studentsService.deleteStudent(id);
+    @DeleteMapping("/{email}")
+    public ResponseEntity<Void> delete(@PathVariable("email") String email) {
+        studentsService.deleteStudent(email);
         return ResponseEntity.ok().build();
     }
 
