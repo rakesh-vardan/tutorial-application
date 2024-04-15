@@ -55,8 +55,6 @@ public class TutorialService {
                 .build();
 
         Response response = given().spec(specification).when().post();
-        int i = response.statusCode();
-        response.prettyPrint();
         return response.as(StudentCourse.class);
     }
 
